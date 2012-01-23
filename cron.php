@@ -21,7 +21,6 @@ $user->session_begin(false);
 $auth->acl($user->data);
 
 $cron_type = request_var('cron_type', '');
-$use_shutdown_function = (@function_exists('register_shutdown_function')) ? true : false;
 
 // Output transparent gif
 header('Cache-Control: no-cache');
@@ -30,10 +29,9 @@ header('Content-length: 43');
 
 echo base64_decode('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
 
-// test without flush ;)
-// flush();
+// Flush here to prevent browser from showing the page as loading while running cron.
+flush();
 
-//
 if (!isset($config['cron_lock']))
 {
 	set_config('cron_lock', '0', true);
@@ -95,23 +93,10 @@ switch ($cron_type)
 			break;
 		}
 
-		// A user reported using the mail() function while using shutdown does not work. We do not want to risk that.
-		if ($use_shutdown_function && !$config['smtp_delivery'])
-		{
-			$use_shutdown_function = false;
-		}
-
 		include_once($phpbb_root_path . 'includes/functions_messenger.' . $phpEx);
 		$queue = new queue();
 
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function(array(&$queue, 'process'));
-		}
-		else
-		{
 			$queue->process();
-		}
 
 	break;
 
@@ -122,14 +107,7 @@ switch ($cron_type)
 			break;
 		}
 
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function(array(&$cache, 'tidy'));
-		}
-		else
-		{
 			$cache->tidy();
-		}
 
 	break;
 
@@ -154,14 +132,7 @@ switch ($cron_type)
 			break;
 		}
 
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function(array(&$search, 'tidy'));
-		}
-		else
-		{
 			$search->tidy();
-		}
 
 	break;
 
@@ -174,14 +145,7 @@ switch ($cron_type)
 
 		include_once($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function('tidy_warnings');
-		}
-		else
-		{
 			tidy_warnings();
-		}
 
 	break;
 
@@ -194,14 +158,7 @@ switch ($cron_type)
 
 		include_once($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function('tidy_database');
-		}
-		else
-		{
 			tidy_database();
-		}
 
 	break;
 
@@ -212,14 +169,7 @@ switch ($cron_type)
 			break;
 		}
 
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function(array(&$user, 'session_gc'));
-		}
-		else
-		{
 			$user->session_gc();
-		}
 
 	break;
 
@@ -245,27 +195,13 @@ switch ($cron_type)
 			include_once($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 
 			if ($row['prune_days'])
-			{
-				if ($use_shutdown_function)
-				{
-					register_shutdown_function('auto_prune', $row['forum_id'], 'posted', $row['forum_flags'], $row['prune_days'], $row['prune_freq']);
-				}
-				else
 				{
 					auto_prune($row['forum_id'], 'posted', $row['forum_flags'], $row['prune_days'], $row['prune_freq']);
-				}
 			}
 
 			if ($row['prune_viewed'])
-			{
-				if ($use_shutdown_function)
-				{
-					register_shutdown_function('auto_prune', $row['forum_id'], 'viewed', $row['forum_flags'], $row['prune_viewed'], $row['prune_freq']);
-				}
-				else
 				{
 					auto_prune($row['forum_id'], 'viewed', $row['forum_flags'], $row['prune_viewed'], $row['prune_freq']);
-				}
 			}
 		}
 
@@ -273,16 +209,8 @@ switch ($cron_type)
 }
 
 // Unloading cache and closing db after having done the dirty work.
-if ($use_shutdown_function)
-{
-	register_shutdown_function('unlock_cron');
-	register_shutdown_function('garbage_collection');
-}
-else
-{
 	unlock_cron();
 	garbage_collection();
-}
 
 exit;
 

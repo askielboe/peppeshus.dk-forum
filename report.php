@@ -38,12 +38,14 @@ if (!$post_id && (!$pm_id || !$config['allow_pm_report']))
 
 if ($post_id)
 {
-$redirect_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;p=$post_id") . "#p$post_id";
+	$redirect_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;p=$post_id") . "#p$post_id";
+	$return_forum_url = append_sid("{$phpbb_root_path}viewforum.$phpEx", "f=$forum_id");
 	$pm_id = 0;
 }
 else
 {
 	$redirect_url = append_sid("{$phpbb_root_path}ucp.$phpEx", "i=pm&mode=view&p=$pm_id");
+	$return_forum_url = '';
 	$post_id = 0;
 	$forum_id = 0;
 }
@@ -56,52 +58,53 @@ if (isset($_POST['cancel']))
 
 if ($post_id)
 {
-// Grab all relevant data
-$sql = 'SELECT t.*, p.*
-	FROM ' . POSTS_TABLE . ' p, ' . TOPICS_TABLE . " t
-	WHERE p.post_id = $post_id
-		AND p.topic_id = t.topic_id";
-$result = $db->sql_query($sql);
-$report_data = $db->sql_fetchrow($result);
-$db->sql_freeresult($result);
+	// Grab all relevant data
+	$sql = 'SELECT t.*, p.*
+		FROM ' . POSTS_TABLE . ' p, ' . TOPICS_TABLE . " t
+		WHERE p.post_id = $post_id
+			AND p.topic_id = t.topic_id";
+	$result = $db->sql_query($sql);
+	$report_data = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
 
-if (!$report_data)
-{
-	trigger_error('POST_NOT_EXIST');
-}
-
-$forum_id = (int) ($report_data['forum_id']) ? $report_data['forum_id'] : $forum_id;
-$topic_id = (int) $report_data['topic_id'];
-
-$sql = 'SELECT *
-	FROM ' . FORUMS_TABLE . '
-	WHERE forum_id = ' . $forum_id;
-$result = $db->sql_query($sql);
-$forum_data = $db->sql_fetchrow($result);
-$db->sql_freeresult($result);
-
-if (!$forum_data)
-{
-	trigger_error('FORUM_NOT_EXIST');
-}
-
-// Check required permissions
-$acl_check_ary = array('f_list' => 'POST_NOT_EXIST', 'f_read' => 'USER_CANNOT_READ', 'f_report' => 'USER_CANNOT_REPORT');
-
-foreach ($acl_check_ary as $acl => $error)
-{
-	if (!$auth->acl_get($acl, $forum_id))
+	if (!$report_data)
 	{
-		trigger_error($error);
+		trigger_error('POST_NOT_EXIST');
 	}
-}
-unset($acl_check_ary);
 
-if ($report_data['post_reported'])
-{
-	$message = $user->lang['ALREADY_REPORTED'];
-	$message .= '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $redirect_url . '">', '</a>');
-	trigger_error($message);
+	$forum_id = (int) ($report_data['forum_id']) ? $report_data['forum_id'] : $forum_id;
+	$topic_id = (int) $report_data['topic_id'];
+
+	$sql = 'SELECT *
+		FROM ' . FORUMS_TABLE . '
+		WHERE forum_id = ' . $forum_id;
+	$result = $db->sql_query($sql);
+	$forum_data = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
+
+	if (!$forum_data)
+	{
+		trigger_error('FORUM_NOT_EXIST');
+	}
+
+	// Check required permissions
+	$acl_check_ary = array('f_list' => 'POST_NOT_EXIST', 'f_read' => 'USER_CANNOT_READ', 'f_report' => 'USER_CANNOT_REPORT');
+
+	foreach ($acl_check_ary as $acl => $error)
+	{
+		if (!$auth->acl_get($acl, $forum_id))
+		{
+			trigger_error($error);
+		}
+	}
+	unset($acl_check_ary);
+
+	if ($report_data['post_reported'])
+	{
+		$message = $user->lang['ALREADY_REPORTED'];
+		$message .= '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $redirect_url . '">', '</a>');
+		$message .= '<br /><br />' . sprintf($user->lang['RETURN_FORUM'], '<a href="' . $return_forum_url . '">', '</a>');
+		trigger_error($message);
 	}
 }
 else
@@ -167,13 +170,13 @@ if ($submit && $reason_id)
 			WHERE post_id = ' . $post_id;
 		$db->sql_query($sql);
 
-	if (!$report_data['topic_reported'])
-	{
-		$sql = 'UPDATE ' . TOPICS_TABLE . '
-			SET topic_reported = 1
-			WHERE topic_id = ' . $report_data['topic_id'] . '
-				OR topic_moved_id = ' . $report_data['topic_id'];
-		$db->sql_query($sql);
+		if (!$report_data['topic_reported'])
+		{
+			$sql = 'UPDATE ' . TOPICS_TABLE . '
+				SET topic_reported = 1
+				WHERE topic_id = ' . $report_data['topic_id'] . '
+					OR topic_moved_id = ' . $report_data['topic_id'];
+			$db->sql_query($sql);
 		}
 
 		$lang_return = $user->lang['RETURN_TOPIC'];
@@ -209,6 +212,10 @@ if ($submit && $reason_id)
 	meta_refresh(3, $redirect_url);
 
 	$message = $lang_success . '<br /><br />' . sprintf($lang_return, '<a href="' . $redirect_url . '">', '</a>');
+	if ($return_forum_url)
+	{
+		$message .= '<br /><br />' . sprintf($user->lang['RETURN_FORUM'], '<a href="' . $return_forum_url . '">', '</a>');
+	}
 	trigger_error($message);
 }
 

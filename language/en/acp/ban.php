@@ -68,8 +68,11 @@ $lang = array_merge($lang, array(
 
 	'LENGTH_BAN_INVALID'		=> 'The date has to be formatted <kbd>YYYY-MM-DD</kbd>.',
 
+	'OPTIONS_BANNED'			=> 'Banned',
+	'OPTIONS_EXCLUDED'			=> 'Excluded',
+
 	'PERMANENT'		=> 'Permanent',
-	
+
 	'UNTIL'						=> 'Until',
 	'USER_BAN'					=> 'Ban one or more usernames',
 	'USER_BAN_EXCLUDE_EXPLAIN'	=> 'Enable this to exclude the entered users from all current bans.',
@@ -77,8 +80,6 @@ $lang = array_merge($lang, array(
 	'USER_NO_BANNED'			=> 'No banned usernames',
 	'USER_UNBAN'				=> 'Un-ban or un-exclude usernames',
 	'USER_UNBAN_EXPLAIN'		=> 'You can unban (or un-exclude) multiple users in one go using the appropriate combination of mouse and keyboard for your computer and browser. Excluded users are emphasised.',
-	
-
 ));
 
 ?>
