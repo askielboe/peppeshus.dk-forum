@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="../modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.2.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+		
+		<title lang="en">Anti Bot Question</title>
+		
+		<description lang="en">Add an Admin controlled anti-bot question to the registration page and ACP.</description>
+		
+		<author-notes lang="en">Mod will need to be switched on before use</author-notes>
+		
+		<author-group>
+			<author>
+				<username>CoC</username>
+				<realname>Chris</realname>
+				<homepage>http://www.skyblueuntrust.com</homepage>
+			</author>
+		</author-group>
+		
+		<mod-version>1.2.0</mod-version>
+		
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.4</target-version>
+		</installation>
+		
+		<link-group>
+			<link type="parent" lang="en-gb" href="../install.xml">Main installation</link>
+		</link-group>
+		
+		<history>
+			<entry>
+				<date>2009-02-23</date>
+				<rev-version>1.2.0</rev-version>
+				<changelog lang="en-gb">
+					<change>Update to ModX 1.2.2</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2008-01-10</date>
+				<rev-version>1.1.0</rev-version>
+				<changelog lang="en-gb">
+					<change>Fixed bug with answer two being submitted as empty</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2008-01-02</date>
+				<rev-version>1.0.4</rev-version>
+				<changelog lang="en-gb">
+					<change>Fixed typo in laguage file (Thanks Pinecamguy)</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-12-30</date>
+				<rev-version>1.0.3</rev-version>
+				<changelog lang="en-gb">
+					<change>Fixed error if question and answer are set but mod is switched off.</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-10-28</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en-gb">
+					<change>Updated template edits, and better incorect answer message.</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-10-11</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en-gb">
+					<change>Altered to fit to Mod Standards</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-08-08 </date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en-gb">
+					<change>Submitted to MoDDB</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-07-29</date>
+				<rev-version>0.0.4</rev-version>
+				<changelog lang="en-gb">
+					<change>Added second answer option</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-07-27</date>
+				<rev-version>0.0.3</rev-version>
+				<changelog lang="en-gb">
+					<change>Added switch to turn mod on or off in the ACP</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-07-21</date>
+				<rev-version>0.0.2</rev-version>
+				<changelog lang="en-gb">
+					<change>Fixed case insensitive when upercase letters used in the ACP</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2007-07-20</date>
+				<rev-version>0.0.1</rev-version>
+				<changelog lang="en-gb">
+					<change>First Release</change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+
+	<action-group>
+	<open src="styles/subsilver2/template/ucp_register.html">
+			<edit>
+				<find><![CDATA[<tr>
+	<td class="row1"><b class="genmed">{L_CONFIRM_PASSWORD}: </b></td>
+	<td class="row2"><input class="post" type="password" name="password_confirm" size="25" value="{PASSWORD_CONFIRM}" /></td>
+</tr>]]></find>
+			  <action type="after-add"><![CDATA[<!-- IF S_ABQ_CODE -->
+<tr>
+	<td class="row1"><b class="genmed">{L_AB_QUESTION}:</b><br /><span class="gensmall">{L_AB_QUESTION_EXPLAIN}</span></td>
+	<td class="row2"><input class="post" type="text" name="AB_Question" size="25" maxlength="100" value="{AB_QUESTION}" /></td>
+</tr>
+<!-- ENDIF -->]]></action>
+			</edit>		
+		</open>			
+	</action-group>
+</mod>

@@ -1,0 +1,685 @@
+/*  phpBB 3.0 Style Sheet
+    --------------------------------------------------------------
+	Style name:		subsilver2
+	Based on style:	subSilver (the default phpBB 2 style)
+	Original author:	subBlue ( http://www.subBlue.com/ )
+	Modified by:		psoTFX and the phpBB team ( http://www.phpbb.com )
+	
+	This is an alternative style for phpBB3 for those wishing to stay with
+	the familiar subSilver style of phpBB version 2.x
+	
+	Copyright 2006 phpBB Group ( http://www.phpbb.com/ )
+    --------------------------------------------------------------
+*/
+
+/* Layout
+ ------------ */
+* {
+	/* Reset browsers default margin, padding and font sizes */
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 100%;
+}
+
+body {
+	/* Text-Sizing with ems: http://www.clagnut.com/blog/348/ */
+	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+	color: #8391a7;
+	background-color: #1c1c1c;
+	font-size: 62.5%; /* This sets the default font size to be equivalent to 10px */
+	margin: 0;
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+	background: black url('./images/bg.gif') repeat-y scroll top;
+}
+
+#wrapheader {
+	min-height: 120px;
+	height: auto !important;
+	height: 120px;
+}
+
+#wrapcentre {
+	margin-left: auto;
+	margin-right: 1px;
+}
+
+#wrapfooter {
+	text-align: center;
+	clear: both;
+}
+
+#wrapnav {
+	width: 100%;
+	margin: 0;
+	background-color: #1c1c1c;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #282828;
+}
+
+#logodesc {
+	background: #090909;
+}
+
+#menubar {
+	margin: auto;
+	height: 25px;
+	background-image: url('./images/cellpic1.gif');
+}
+
+#datebar {
+	margin: 10px 25px 0 25px;
+}
+
+#findbar {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.forumrules {
+	background-color: #F9CC79;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #BB9860;
+	padding: 4px;
+	font-weight: normal;
+	font-size: 1.1em;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}
+
+.forumrules h3 {
+	color: red;
+}
+
+#pageheader { }
+#pagecontent { }
+#pagefooter { }
+
+#poll { }
+#postrow { }
+#postdata { }
+
+
+/*  Text
+ --------------------- */
+h1 {
+	color: white;
+	font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+	font-weight: bold;
+	font-size: 1.8em;
+	text-decoration: none;
+}
+
+h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 1.5em;
+	text-decoration: none;
+	line-height: 120%;
+}
+
+h3 {
+	font-size: 1.3em;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 120%;
+}
+
+h4 {
+	margin: 0;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+h5 {
+	color: c8d8e5;
+	margin: 0;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+p {
+	font-size: 1.1em;
+}
+
+p.moderators {
+	margin: 0;
+	float: left;
+	color: white;
+	font-weight: bold;
+}
+
+.rtl p.moderators {
+	float: right;
+}
+
+p.linkmcp {
+	margin: 0;
+	float: right;
+	white-space: nowrap;
+}
+
+.rtl p.linkmcp {
+	float: left;
+}
+
+p.breadcrumbs {
+	margin: 0;
+	float: left;
+	color: white;
+	font-weight: bold;
+	white-space: normal;
+	font-size: 1em;
+}
+
+.rtl p.breadcrumbs {
+	float: right;
+}
+
+p.datetime {
+	margin: 0;
+	float: right;
+	white-space: nowrap;
+	font-size: 1em;
+}
+
+.rtl p.datetime {
+	float: left;
+}
+
+p.searchbar {
+	padding: 2px 0;
+	white-space: nowrap;
+} 
+
+p.searchbarreg {
+	margin: 0;
+	float: right;
+	white-space: nowrap;
+}
+
+.rtl p.searchbarreg {
+	float: left;
+}
+
+p.forumdesc {
+	padding-bottom: 4px;
+}
+
+p.topicauthor {
+	margin: 1px 0;
+}
+
+p.topicdetails {
+	margin: 1px 0;
+}
+
+.postreported, .postreported a:visited, .postreported a:hover, .postreported a:link, .postreported a:active {
+	margin: 1px 0;
+	color: red;
+	font-weight:bold;
+}
+
+.postapprove, .postapprove a:visited, .postapprove a:hover, .postapprove a:link, .postapprove a:active {
+	color: green;
+	font-weight:bold;
+}
+
+.postapprove img, .postreported img {
+	vertical-align: bottom;
+}
+
+.postauthor {
+	color: #ffffff;
+}
+
+.postdetails {
+	color: #ffffff;
+}
+
+.postbody {
+	font-size: 1.3em;
+	line-height: 1.4em;
+	font-family: "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+.postbody li, ol, ul {
+	margin: 0 0 0 1.5em;
+}
+
+.rtl .postbody li, .rtl ol, .rtl ul {
+	margin: 0 1.5em 0 0;
+}
+
+.posthilit {
+	background-color: yellow;
+}
+
+.nav {
+	margin: 0;
+	color: white;
+	font-weight: bold;
+	
+}
+
+.pagination {
+	padding: 4px;
+	color: white;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.cattitle {
+
+}
+
+.gen {
+	margin: 1px 1px;
+	font-size: 1.2em;
+}
+
+.genmed {
+	margin: 1px 1px;
+	font-size: 1.1em;
+}
+
+.gensmall {
+	margin: 1px 1px;
+	font-size: 1em;
+}
+
+.copyright {
+	color: #444;
+	font-weight: normal;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}
+
+.titles {
+	font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 1.3em;
+	text-decoration: none;
+}
+
+.error {
+	color: red;
+}
+
+
+/* Tables
+ ------------ */
+th {
+	color: #4f6ca6;
+	font-size: 1.1em;
+	font-weight: bold;
+	background-color: #131313;
+	white-space: nowrap;
+	padding: 7px 5px;
+}
+
+td {
+	padding: 0px;
+}
+td.profile {
+	padding: 4px;
+}
+
+.tablebg {
+	background-color: #282828;
+}
+
+.catdiv {
+	height: 25px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background-image: url('./images/cellpic1.gif');
+}
+.rtl .catdiv {
+	height: 25px;
+	background-image: url('./images/cellpic1.gif');
+}
+
+.cat {
+	height: 25px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background-color: #C7D0D7;
+	background-image: url('./images/cellpic1.gif');
+	text-indent: 4px;
+}
+
+.cat2 {
+	height: 25px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	color: #4f6ca6;
+	background-color: #C7D0D7;
+	background-image: url('./images/cellpic1.gif');
+	text-indent: 4px;
+}
+
+.row1 {
+	background-color: #1c1c1c;
+	padding: 4px;
+}
+
+.row2 {
+	background-color: #131313;
+	padding: 4px;
+}
+
+.row3 {
+	background-color: #232323;
+	padding: 4px;
+}
+
+.spacer {
+	background-color: #1c1c1c;
+}
+
+hr {
+	height: 1px;
+	border-width: 0;
+	background-color: #D1D7DC;
+	color: #D1D7DC;
+}
+
+.legend {
+	text-align:center;
+	margin: 0 auto;
+}
+
+/* Links
+ ------------ */
+a:link {
+	color: #4f6ca6;
+	text-decoration: none;
+}
+
+a:active,
+a:visited {
+	color: #4f6ca6;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #8eb9db;
+	text-decoration: underline;
+}
+
+a.forumlink {
+	color: #4f6ca6;
+	font-weight: bold;
+	font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-size: 1.2em;
+}
+
+a.topictitle {
+	margin: 1px 0;
+	font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+a.topictitle:visited {
+	color: #4f6ca6;
+	text-decoration: none;
+}
+
+th a,
+th a:visited {
+	color: #c8d8e5 !important;
+	text-decoration: none;
+}
+
+th a:hover {
+	text-decoration: underline;
+}
+
+
+/* Form Elements
+ ------------ */
+form {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+input {
+	color: #626262;
+	font-family: "Lucida Grande", Verdana, Helvetica, sans-serif;
+	font-size: 1.1em;
+	font-weight: normal;
+	padding: 1px;
+	border: 1px solid #282828;
+	background-color: #1c1c1c;
+}
+
+textarea {
+	background-color: #1c1c1c;
+	color: #626262;
+	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+	font-size: 1.3em; 
+	line-height: 1.4em;
+	font-weight: normal;
+	border: 1px solid #282828;
+	padding: 2px;
+}
+
+select {
+	color: #626262;
+	background-color: #1c1c1c;
+	font-family: "Lucida Grande", Verdana, Helvetica, sans-serif;
+	font-size: 1.1em;
+	font-weight: normal;
+	border: 1px solid #282828;
+	padding: 1px;
+}
+
+option {
+	padding: 0 1em 0 0;
+}
+
+option.disabled-option {
+	color: graytext;
+}
+
+.rtl option {
+	padding: 0 0 0 1em;
+}
+
+input.radio {
+	border: none;
+	background-color: transparent;
+}
+
+.post {
+	background-color: 131313;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.btnbbcode {
+	color: #626262;
+	font-weight: normal;
+	font-size: 1.1em;
+	font-family: "Lucida Grande", Verdana, Helvetica, sans-serif;
+	background-color: #131313;
+	border: 1px solid #666666;
+}
+
+.btnmain {
+	font-weight: bold;
+	background-color: #1c1c1c;
+	border: 1px solid #282828;
+	cursor: pointer;
+	padding: 1px 5px;
+	font-size: 1.1em;
+}
+
+.btnlite {
+	font-weight: normal;
+	background-color: #1c1c1c;
+	border: 1px solid #282828;
+	cursor: pointer;
+	padding: 1px 5px;
+	font-size: 1.1em;
+}
+
+.btnfile {
+	font-weight: normal;
+	background-color: #1c1c1c;
+	border: 1px solid #282828;
+	padding: 1px 5px;
+	font-size: 1.1em;
+}
+
+.helpline {
+	background-color: #1c1c1c;
+	border-style: none;
+}
+
+
+/* BBCode
+ ------------ */
+.quotetitle, .attachtitle {
+	margin: 10px 5px 0 5px;
+	padding: 4px;
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #282828;
+	color: #626262;
+	background-color: #282828;
+	font-size: 0.85em;
+	font-weight: bold;
+}
+
+.quotetitle .quotetitle {
+	font-size: 1em;
+}
+
+.quotecontent, .attachcontent {
+	margin: 0 5px 10px 5px;
+	padding: 5px;
+	border-color: #282828;
+	border-width: 0 1px 1px 1px;
+	border-style: solid;
+	font-weight: normal;
+	font-size: 1em;
+	line-height: 1.4em;
+	font-family: "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
+	background-color: #FAFAFA;
+	color: #4B5C77;
+}
+
+.attachcontent {
+	font-size: 0.85em;
+}
+
+.codetitle {
+	margin: 10px 5px 0 5px;
+	padding: 2px 4px;
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #282828;
+	color: #626262;
+	background-color: #282828;
+	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+}
+
+.codecontent {
+	direction: ltr;
+	margin: 0 5px 10px 5px;
+	padding: 5px;
+	border-color: #282828;
+	border-width: 0 1px 1px 1px;
+	border-style: solid;
+	font-weight: normal;
+	color: #006600;
+	font-size: 0.85em;
+	font-family: Monaco, 'Courier New', monospace;
+	background-color: #FAFAFA;
+}
+
+.syntaxbg {
+	color: #1c1c1c;
+}
+
+.syntaxcomment {
+	color: #FF8000;
+}
+
+.syntaxdefault {
+	color: #0000BB;
+}
+
+.syntaxhtml {
+	color: #000000;
+}
+
+.syntaxkeyword {
+	color: #007700;
+}
+
+.syntaxstring {
+	color: #DD0000;
+}
+
+
+/* Private messages
+ ------------------ */
+.pm_marked_colour {
+	background-color: #000000;
+}
+
+.pm_replied_colour {
+	background-color: #282828;
+}
+
+.pm_friend_colour {
+	background-color: #007700;
+}
+
+.pm_foe_colour {
+	background-color: #DD0000;
+}
+
+
+/* Misc
+ ------------ */
+img {
+	border: none;
+}
+
+.sep {
+	color: black;
+	background-color: #ffffff;
+}
+
+table.colortable td {
+	padding: 0;
+}
+
+pre {
+	font-size: 1.1em;
+	font-family: Monaco, 'Courier New', monospace;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.username-coloured {
+	font-weight: bold;
+}

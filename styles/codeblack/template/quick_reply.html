@@ -1,0 +1,172 @@
+<!-- INCLUDE breadcrumbs.html -->
+	
+<form action="{S_POST_ACTION}" method="post" id="postform" name="postform"{S_FORM_ENCTYPE}>
+
+<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<th colspan="4"><b>{L_QUICK_REPLY}</b></th>
+	</tr>
+<td class="row2" width="20%" valign="top">
+	
+</td>
+
+<td class="row1" width="60%" valign="top">
+	
+<table class="tablebg" width="100%" cellspacing="1">
+
+<!-- IF ERROR -->
+	<tr>
+		<td class="row2" colspan="2" align="center"><span class="genmed error">{ERROR}</span></td>
+	</tr>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_USERNAME -->
+	<tr>
+		<td class="row1"><b class="genmed">{L_USERNAME}:</b></td>
+		<td class="row2"><input class="post" type="text" tabindex="1" name="username" size="25" value="{USERNAME}" /></td>
+	</tr>
+<!-- ENDIF -->
+
+<tr>
+	<td class="row2" valign="top">
+		<script type="text/javascript">
+		// <![CDATA[
+			var form_name = 'postform';
+			var text_name = 'message';
+		// ]]>
+		</script>		
+
+		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<!-- INCLUDE posting_buttons_quickreply.html -->
+		<tr>
+			<td valign="top" style="width: 100%;"><textarea name="message" rows="10" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99.3%;">{MESSAGE}</textarea></td>
+			<!-- IF S_BBCODE_ALLOWED -->
+			<!-- ENDIF -->
+	 	</tr>
+		</table>
+	</td>
+</tr>
+
+<tr  style="display: {EXTRA_OPTIONS_DISPLAY};">
+	<td class="row1" valign="top"><b class="genmed">{L_OPTIONS}:</b><br />
+		<table cellspacing="2" cellpadding="0" border="0">
+		<tr>
+			<td class="gensmall">{BBCODE_STATUS}</td>
+		</tr>
+		<!-- IF S_BBCODE_ALLOWED -->
+		<tr>
+			<td class="gensmall">{IMG_STATUS}</td>
+		</tr>
+		<tr>
+			<td class="gensmall">{FLASH_STATUS}</td>
+		</tr>
+		<tr>
+			<td class="gensmall">{URL_STATUS}</td>
+		</tr>
+		<tr>
+			<td class="gensmall">{SMILIES_STATUS}</td>
+		</tr>
+		<!-- ENDIF -->
+		</table>
+	</td>
+	<td class="row2">
+		<table cellpadding="1">
+		<!-- IF S_BBCODE_ALLOWED -->
+			<tr>
+				<td><input type="checkbox" class="radio" name="disable_bbcode"{S_BBCODE_CHECKED} /></td>
+				<td class="gen">{L_DISABLE_BBCODE}</td>
+			</tr>
+		<!-- ENDIF -->
+
+		<!-- IF S_SMILIES_ALLOWED -->
+			<tr>
+				<td><input type="checkbox" class="radio" name="disable_smilies"{S_SMILIES_CHECKED} /></td>
+				<td class="gen">{L_DISABLE_SMILIES}</td>
+			</tr>
+		<!-- ENDIF -->
+
+		<!-- IF S_LINKS_ALLOWED -->
+		<tr>
+			<td><input type="checkbox" class="radio" name="disable_magic_url"{S_MAGIC_URL_CHECKED} /></td>
+			<td class="gen">{L_DISABLE_MAGIC_URL}</td>
+		</tr>
+		<!-- ENDIF -->
+
+		<!-- IF S_SIG_ALLOWED -->
+			<tr>
+				<td><input type="checkbox" class="radio" name="attach_sig"{S_SIGNATURE_CHECKED} /></td>
+				<td class="gen">{L_ATTACH_SIG}</td>
+			</tr>
+		<!-- ENDIF -->
+
+		<!-- IF S_NOTIFY_ALLOWED -->
+			<tr>
+				<td><input type="checkbox" class="radio" name="notify"{S_NOTIFY_CHECKED} /></td>
+				<td class="gen">{L_NOTIFY_REPLY}</td>
+			</tr>
+		<!-- ENDIF -->
+
+		<!-- IF S_LOCK_TOPIC_ALLOWED -->
+			<tr>
+				<td><input type="checkbox" class="radio" name="lock_topic"{S_LOCK_TOPIC_CHECKED} /></td>
+				<td class="gen">{L_LOCK_TOPIC}</td>
+			</tr>
+		<!-- ENDIF -->
+		
+		<!-- IF S_LOCK_POST_ALLOWED -->
+			<tr>
+				<td><input type="checkbox" class="radio" name="lock_post"{S_LOCK_POST_CHECKED} /></td>
+				<td class="gen">{L_LOCK_POST} [{L_LOCK_POST_EXPLAIN}]</td>
+			</tr>
+		<!-- ENDIF -->
+		</table>
+	</td>
+</tr>
+
+<!-- IF S_CONFIRM_CODE -->
+	<tr>
+		<th colspan="2" valign="middle">{L_POST_CONFIRMATION}</th>
+	</tr>
+	<tr>
+		<td class="row3" colspan="2"><span class="gensmall">{L_POST_CONFIRM_EXPLAIN}</span></td>
+	</tr>
+	<tr>
+		<td class="row1" colspan="2" align="center">
+			<input type="hidden" name="confirm_id" value="{CONFIRM_ID}" />
+			{CONFIRM_IMAGE}
+		</td>
+	</tr>
+	<tr>
+		<td class="row1"><b class="genmed">{L_CONFIRM_CODE}: </b><br /><span class="gensmall">{L_CONFIRM_CODE_EXPLAIN}</span></td>
+		<td class="row2"><input class="post" type="text" name="confirm_code" size="8" maxlength="8" /></td>
+	</tr>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_ATTACH_BOX -->
+	<tr>
+		<td class="cat" colspan="2" align="center">
+			<input class="btnlite" type="submit" tabindex="5" name="preview" value="{L_PREVIEW}" />
+			&nbsp; <input class="btnmain" type="submit" accesskey="s" tabindex="6" name="post" value="{L_SUBMIT}" />
+		</td>
+	</tr>
+
+<!-- INCLUDE posting_attach_body.html -->
+<!-- ENDIF -->
+
+<tr>
+	<td class="cat" colspan="2" align="center">
+		{S_HIDDEN_FIELDS}
+		<input class="btnlite" type="submit" tabindex="10" name="preview" value="{L_PREVIEW}" />
+		&nbsp; <input class="btnmain" type="submit" accesskey="s" tabindex="11" name="post" value="{L_SUBMIT}" />
+	</td>
+</tr>
+</table>
+</td>
+
+<td class="row2" width="20%" valign="top">
+	
+</td>
+
+<br clear="all" />
+{S_FORM_TOKEN}
+</form>

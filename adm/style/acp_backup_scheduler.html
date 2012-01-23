@@ -1,0 +1,237 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h2>{L_ACP_BACKUP_SCHEDULER}</h2>
+
+<p>{L_ACP_BACKUP_SCHEDULER_EXPLAIN}</p>
+<h3>{SCHEDULER_HEAD}</h3>
+
+<!-- IF S_SCHEDULER -->
+	{BACKUP_STATS}<br />
+	<!-- IF S_POSTS_BACKUP -->
+		{POST_STATS}<br />
+	<!-- ENDIF -->
+	{BACKUP_FILES}<br /><br />
+<!-- ENDIF -->
+
+<!-- IF S_INSTALL_CHECK -->
+	<div class="errorbox">
+		<p>{L_INSTALL_NOT_GONE}</p>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_LOCK_CHECK -->
+	<form id="acp_backup_scheduler" method="post" action="{U_ACTION_LOCK}">
+	<div class="errorbox">
+		<p>{L_LOCK_EXISTS}</p>
+		<br />
+		<p><input class="button1" type="submit" id="submit" name="submit" value="{L_DELETE_LOCK}" /></p>
+	</div>
+	</form>
+<!-- ENDIF -->
+
+<!-- IF S_ADD || S_EDIT -->
+<script type="text/javascript">
+// <![CDATA[
+	function selector(bool)
+	{
+		var table = document.getElementById('table');
+
+		for (var i = 0; i < table.options.length; i++)
+		{
+			table.options[i].selected = bool;
+		}
+	}
+// ]]>
+</script>
+
+<form id="acp_backup_scheduler" method="post" action="{U_ACTION}">
+
+<fieldset>
+	<legend>{L_BACKUP_OPTIONS}</legend>
+
+<dl>
+	<dt><label for="name">{L_NAME}:</label></dt>
+	<dd><label><input type="text" class="full" size="25" name="name" value="{NAME}" id="name" /></label></dd>
+</dl>
+
+<!-- IF S_EDIT -->
+<dl>
+	<dt><label for="type">{L_ACTIVE}:</label></dt>
+	<dd><label><input type="radio" class="radio" name="active" value="1" id="active" <!-- IF S_ACTIVE -->checked="checked"<!-- ENDIF --> />{L_YES}</label>
+		<label><input type="radio" class="radio" name="active" value="0" id="active" <!-- IF not S_ACTIVE -->checked="checked"<!-- ENDIF -->  />{L_NO}</label></dd>
+</dl>
+<!-- ENDIF -->
+
+<dl>
+	<dt><label for="type">{L_BACKUP_TYPE}:</label></dt>
+	<dd><label><input type="radio" class="radio" name="type" value="full" id="type" <!-- IF S_TYPE_FULL -->checked="checked"<!-- ENDIF --> /> {L_FULL_BACKUP}</label>
+		<label><input type="radio" class="radio" name="type" value="structure" <!-- IF S_TYPE_STRUCTURE -->checked="checked"<!-- ENDIF --> /> {L_STRUCTURE_ONLY}</label>
+		<label><input type="radio" class="radio" name="type" value="data" <!-- IF S_TYPE_DATA -->checked="checked"<!-- ENDIF --> /> {L_DATA_ONLY}</label></dd>
+</dl>
+
+<dl>
+		<dt><label for="method">{L_FILE_TYPE}:</label></dt>
+		<dd><!-- BEGIN methods -->
+		<label><input type="radio" class="radio" name="method" id="method" <!-- IF methods.S_FIRST_ROW && S_ADD --> checked="checked" <!-- ENDIF -->value="{methods.DISPLAY} {methods.TYPE}</label>
+		<!-- END methods --></dd>
+</dl>
+
+<dl>
+	<dt><label for="table">{L_TABLE_SELECT}:</label></dt>
+	<dd><select id="table" name="table[]" size="10" multiple="multiple">
+	<!-- BEGIN tables -->
+		{tables.TABLE}
+	<!-- END tables -->
+	</select></dd>
+	<dd><a href="#" onclick="selector(true); return false;">{L_SELECT_ALL}</a> :: <a href="#" onclick="selector(false); return false;">{L_DESELECT_ALL}</a></dd>
+</dl>
+
+<dl>
+	<dt><label for="frequency">{L_FREQUENCY}:</label></dt>
+	<dd><label><input type="text" size="6" name="frequency" value="{FREQUENCY}" id="frequency" /> {L_HOURS}</label></dd>
+</dl>
+
+<!-- IF S_POSTS_BACKUP -->
+	<dl>
+		<dt><label for="frequency">{L_POST_COUNTS}:</label><br />{L_POST_COUNTS_EXPLAIN}</dt>
+		<dd><label><input type="text" size="4" name="post_count" value="{POST_COUNT}" id="post_count" /> {L_POSTS}</label></dd>
+	</dl>
+<!-- ENDIF -->
+
+<dl>
+	<dt><label for="expire">{L_KEEP}:</label></dt>
+	<dd><label><input type="text" size="2" name="expire" value="{KEEP}" id="expire" /> {L_BUP_DAY}</label></dd>
+</dl>
+
+<!-- IF S_FTP_BACKUP -->
+	<dl>
+		<dt><label for="ftp">{L_FTP_BACKUP}:</label></dt>
+		<dd><label><input type="radio" class="radio" name="ftp" value="1" id="ftp" <!-- IF S_FTP -->checked="checked"<!-- ENDIF --> />{L_YES}</label>
+		<label><input type="radio" class="radio" name="ftp" value="0" id="ftp" <!-- IF not S_FTP -->checked="checked"<!-- ENDIF -->  />{L_NO}</label></dd>
+	</dl>
+<!-- ENDIF -->
+
+{S_HIDDEN_FIELDS}
+<p class="submit-buttons">
+	<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+</p>
+{S_FORM_TOKEN}
+</fieldset>
+</form>
+
+<!-- ELSE -->
+<script type="text/javascript">
+// <![CDATA[
+	function ShowHide(id)
+	{
+		var obj = "";	
+
+		// Check browser compatibility
+		if(document.getElementById)
+		{
+			obj = document.getElementById(id);
+		}
+		else if(document.all)
+		{
+			obj = document.all[id];
+		}
+		else if(document.layers)
+		{
+			obj = document.layers[id];
+		}
+		else
+		{
+			return 1;
+		}
+
+		if (!obj) 
+		{
+			return 1;
+		}
+		else if (obj.style) 
+		{			
+			obj.style.display = ( obj.style.display != "none" ) ? "none" : "";
+		}
+		else 
+		{ 
+			obj.visibility = "show"; 
+		}
+	}
+// ]]>
+</script>
+
+<style type="text/css">
+<!--
+.cursor {
+	cursor: pointer;
+	cursor: hand;
+//-->
+</style>
+
+<form id="acp_backup_scheduler" method="post" action="{ACTION}">
+	<fieldset class="tabulated">
+
+	<table cellspacing="1">
+	<thead>
+	<tr>
+		<th>{L_NAME}</th>
+		<th>{L_ACTIVE}</th>
+		<th>{L_BACKUP_TYPE}</th>
+		<th>{L_FREQUENCY}</th>
+		<!-- IF S_POSTS_BACKUP --><th>{L_POST_COUNT}</th><!-- ENDIF -->
+		<!-- IF S_FTP_BACKUP --><th>{L_BACKUP_FTP}</th><!-- ENDIF -->
+		<th>{L_LAST_BACKUP}</th>
+		<th>{L_NEXT_BACKUP}</th>
+		<th>{L_KEEP}</th>
+		<th style="text-align: center;">{L_ACTION}</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	<!-- BEGIN schedules -->
+		<!-- IF schedules.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+			<td class="cursor" onclick="ShowHide('{schedules.KEY}')"><strong>{schedules.NAME}</strong></td>
+			<td>{schedules.ACTIVE}</td>
+			<td>{schedules.TYPE}</td>
+			<td>{schedules.FREQUENCY}</td>
+			<!-- IF S_POSTS_BACKUP --><td>{schedules.POST_COUNT}</td><!-- ENDIF -->
+			<!-- IF S_FTP_BACKUP --><td>{schedules.FTP}</td><!-- ENDIF -->
+			<td>{schedules.LAST}</td>
+			<td>{schedules.NEXT}</td>
+			<td>{schedules.KEEP}</td>
+			<td style="text-align: center;">
+				<a href="{schedules.U_NOW}">{schedules.ICON_NOW}</a>&nbsp;
+				<a href="{schedules.U_RESTORE}">{schedules.ICON_RESTORE}</a>&nbsp;
+				<a href="{schedules.U_EDIT}">{schedules.ICON_EDIT}</a>&nbsp;
+				<a href="{schedules.U_DELETE}">{schedules.ICON_DELETE}</a></td>
+	</tr>
+
+		<!-- BEGIN files -->
+			<!-- IF schedules.S_ROW_COUNT is even --><tr class="row2" id="{schedules.KEY}" style="display: none;"><!-- ELSE --><tr class="row1" id="{schedules.KEY}" style="display: none;"><!-- ENDIF -->
+				<td colspan="8" class="content">{L_BACKUPS_AVAILABLE}<br />
+				{schedules.files.BACKUPS}</td>		
+			</tr>
+		<!-- END files -->
+
+	<!-- BEGINELSE -->
+		<tr class="row3">
+			<td colspan="8">{L_ACP_NO_ITEMS}</td>
+		</tr>
+	<!-- END schedules -->
+
+	</tbody>
+	</table>
+
+	<p class="quick">
+		<input class="button2" name="add" type="submit" value="{L_ADD_SCHEDULE}" />
+		{S_FORM_TOKEN}
+	</p>
+	</fieldset>
+</form>
+
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

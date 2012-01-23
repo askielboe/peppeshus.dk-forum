@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="contrib/xsl/modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.1.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+		<title lang="en">Google Wave MOD</title>
+		<description lang="en">Adds support for Google Wave to your phpBB3 forum.</description>
+		<author-group>
+			<author>
+				<realname>Cees-Jan Kiewiet</realname>
+				<email>webmaster@wyrihaximus.net</email>
+				<username>Wyr!H@x!mu$</username>
+				<homepage>http://www.wyrihaximus.net</homepage>
+				<contributions />
+			</author>
+		</author-group>
+                <author-notes><![CDATA[Make sure you read the change log before installing/updating this mod!!!
+                Bug tracker: http://forums.wyrihaximus.net/tracker.php?p=17
+                Support Forum: http://forums.wyrihaximus.net/google-wave-f75/
+                phpBB.com Topic: http://www.phpbb.com/community/viewtopic.php?f=70&t=1816465
+                Wave: https://wave.google.com/wave/#restored:wave:googlewave.com!w%252Bn1rgPTcUA
+                Twitter: Send a tweet to @WyriHaximus with the hashtag #gwavemod
+                IRC: #WyriHaximus @ irc.freenode.net
+                ]]></author-notes>
+		<mod-version>1.0.0-BETA1</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>600</time>
+			<target-version>3.0.6</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2009-11-29</date>
+				<rev-version>1.0.0-BETA1</rev-version>
+				<changelog lang="en">
+					<change>Initial Beta Release</change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/*.*" to="*.*" />
+		</copy>
+		<open src="language/en/acp/posting.php">
+			<edit>
+				<find><![CDATA['NUMBER'		=> 'Any series of digits',]]></find>
+                                <action type="after-add"><![CDATA['GWAVEID'		=> 'A Google Wave ID or URL',]]></action>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_bbcodes.php">
+			<edit>
+				<find><![CDATA[			'SIMPLETEXT' => array(
+				'!([a-zA-Z0-9-+.,_ ]+)!'	 =>	"$1"
+			),]]></find>
+                                <action type="after-add"><![CDATA[			'GWAVE' => array(
+				'!([\w-+.,\!_%\/:#]+)!'	 =>	"$1"
+			),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['SIMPLETEXT' => '([a-zA-Z0-9-+.,_ ]+)',]]></find>
+                                <action type="after-add"><![CDATA['GWAVE' => '([\w-+.,\!_%\/:#]+)',]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<find><![CDATA[<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
+	<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<!-- ENDIF -->]]></find>
+				<action type="after-add"><![CDATA[<script src="http://wave-api.appspot.com/public/embed.js" type="text/javascript"></script>
+<script src="mods/google_wave/core.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var phpBBGoogleWave = new phpBBGoogleWave();
+    phpBBGoogleWave.setup('#e1ebf2','#333333','Verdana, Helvetica, Arial, sans-serif','1.3em');
+    onload_functions.push('phpBBGoogleWave.applyWaves()');
+</script>]]></action>
+			</edit>
+		</open>
+<diy-instructions><![CDATA[
+- Save and upload the edited files. Then go to ACP -> Posting -> BBCodes -> Add a new BBCode
+- Under BBCode Usage set:
+[gwave]{GWAVE}[/gwave]
+- Under HTML Replacement set:
+<script type="text/javascript">
+document.write('<div id="' + phpBBGoogleWave.addWave("{GWAVE}") + '" style="width: 100%; height: 600px"></div>');
+</script>
+- Under Help Line set:
+Embed a Google Wave
+- Click submit, now you can use the gwave bbcode in posts and PMs
+]]></diy-instructions>
+	</action-group>
+</mod>

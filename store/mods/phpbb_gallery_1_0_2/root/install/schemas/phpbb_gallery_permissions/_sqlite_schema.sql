@@ -1,0 +1,19 @@
+#
+# $Id: _sqlite_schema.sql 933 2009-01-28 21:51:34Z nickvergessen $
+#
+
+BEGIN TRANSACTION;
+
+# Table: 'phpbb_gallery_permissions'
+CREATE TABLE phpbb_gallery_permissions (
+	perm_id INTEGER PRIMARY KEY NOT NULL ,
+	perm_role_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	perm_album_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	perm_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	perm_group_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	perm_system int(3) NOT NULL DEFAULT '0'
+);
+
+
+
+COMMIT;

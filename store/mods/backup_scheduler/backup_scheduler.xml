@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods>
+	<backup_scheduler_check>
+		<author>david63</author>
+		<title LANG="en">Backup Scheduler</title>
+		<description lang="en">Adds an ACP option to schedule unattended backups.</description>
+		<download>http://mywebworld.org.uk/downloads/backup_scheduler.zip</download>
+		<mod_version>
+			<major>0</major>
+			<minor>0</minor>
+			<revision>4</revision>
+			<release></release>
+		</mod_version>
+	</backup_scheduler_check>
+</mods>
