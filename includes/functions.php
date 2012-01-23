@@ -4669,11 +4669,11 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	));
 
 	// application/xhtml+xml not used because of IE
-	header('Content-type: text/html; charset=UTF-8');
+	//header('Content-type: text/html; charset=UTF-8');
 
-	header('Cache-Control: private, no-cache="set-cookie"');
-	header('Expires: 0');
-	header('Pragma: no-cache');
+	//header('Cache-Control: private, no-cache="set-cookie"');
+	//header('Expires: 0');
+	//header('Pragma: no-cache');
 
 	if (!empty($user->data['is_bot']))
 	{
@@ -4760,10 +4760,10 @@ function page_footer($run_cron = true)
 			$cron_type = 'queue';
 		}
 // Backup scheduler mod
-		else if ($config['backup_scheduler'] && (time() >= $config['backup_scheduler_next'] || ($config['backup_posts'] && $config['num_posts'] >= $config['backup_post_count'])))
-		{
-			$cron_type = 'scheduled_backup';
-		}
+//		else if ($config['backup_scheduler'] && (time() >= $config['backup_scheduler_next'] || ($config['backup_posts'] && $config['num_posts'] >= $config['backup_post_count'])))
+//		{
+//			$cron_type = 'scheduled_backup';
+//		}
 		else if (method_exists($cache, 'tidy') && $time_now - $config['cache_gc'] > $config['cache_last_gc'])
 		{
 			// Tidy the cache
